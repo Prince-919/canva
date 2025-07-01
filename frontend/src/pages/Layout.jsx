@@ -15,7 +15,7 @@ const Layout = () => {
               Banavo
             </h1>
             <div className="flex justify-center items-center gap-4 relative">
-              <button className="py-2 px-6 overflow-hidden text-center bg-[#8b3dff] text-white font-medium rounded-[5px] hover:bg-[#9553f8]">
+              <button className="py-2 px-6 overflow-hidden text-center bg-[#8b3dff] text-white font-medium rounded-[3px] hover:bg-[#9553f8]">
                 Create a Design
               </button>
               <div className="cursor-pointer" onClick={() => setShow(!show)}>

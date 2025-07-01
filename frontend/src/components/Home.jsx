@@ -1,11 +1,30 @@
 import { useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
 
 const Home = () => {
   const [show, setShow] = useState(false);
+  const [state, setState] = useState({
+    width: 0,
+    height: 0,
+  });
+  const navigate = useNavigate();
+
+  const handleInput = (e) => {
+    setState({ ...state, [e.target.name]: e.target.value });
+  };
+
+  const create = () => {
+    navigate("/design/create", {
+      state: {
+        type: "create",
+        width: state.width,
+        height: state.height,
+      },
+    });
+  };
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
@@ -50,6 +69,7 @@ const Home = () => {
                 name="width"
                 className="w-full outline-none px-2 py-[4px] bg-[#1b1a1a] border border-[#404040] rounded-md"
                 id="width"
+                onChange={handleInput}
               />
             </div>
             <div className="flex gap-2 justify-center items-start flex-col">
@@ -59,10 +79,14 @@ const Home = () => {
                 name="height"
                 className="w-full outline-none px-2 py-[4px] bg-[#1b1a1a] border border-[#404040] rounded-md"
                 id="height"
+                onChange={handleInput}
               />
             </div>
           </div>
-          <button className="px-2 py-2 text-[13px] overflow-hidden text-center bg-[#8b3dffad] text-white rounded-[3px] font-semibold hover:bg-[#8b3dffd3] w-full">
+          <button
+            onClick={create}
+            className="px-2 py-2 text-[13px] overflow-hidden text-center bg-[#8b3dffad] text-white rounded-[3px] font-semibold hover:bg-[#8b3dffd3] w-full"
+          >
             Create new Design
           </button>
         </div>

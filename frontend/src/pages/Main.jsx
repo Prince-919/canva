@@ -81,8 +81,39 @@ const Main = () => {
     window.addEventListener("mousemove", mouseMove);
     window.addEventListener("mouseup", mouseUp);
   };
-  const rotateElement = () => {
-    console.log("rotate clicked");
+
+  const rotateElement = (id, currentInfo) => {
+    setCurrentComponent("");
+    setCurrentComponent(currentInfo);
+    const target = document.getElementById(id);
+    const mouseMove = ({ movementX, movementY }) => {
+      const getStyle = window.getComputedStyle(target);
+      const trans = getStyle.transform;
+      const values = trans.split("(")[1].split(")")[0].split(",");
+      const angle = Math.round(
+        Math.atan2(values[1], values[0]) * (180 / Math.PI)
+      );
+      let deg = angle < 0 ? angle + 360 : angle;
+      if (movementX) {
+        deg += movementX;
+      }
+      target.style.transform = `rotate(${deg}deg)`;
+    };
+
+    const mouseUp = () => {
+      window.removeEventListener("mousemove", mouseMove);
+      window.removeEventListener("mouseup", mouseUp);
+      const getStyle = window.getComputedStyle(target);
+      const trans = getStyle.transform;
+      const values = trans.split("(")[1].split(")")[0].split(",");
+      const angle = Math.round(
+        Math.atan2(values[1], values[0]) * (180 / Math.PI)
+      );
+      let deg = angle < 0 ? angle + 360 : angle;
+      setRotate(deg);
+    };
+    window.addEventListener("mousemove", mouseMove);
+    window.addEventListener("mouseup", mouseUp);
   };
   const removeComponent = (id) => {
     const temp = components.filter((c) => c.id !== id);
@@ -141,6 +172,7 @@ const Main = () => {
       if (components.name !== "text") {
         components[index].width = width || currentComponent.width;
         components[index].height = height || currentComponent.height;
+        components[index].rotate = rotate || currentComponent.rotate;
       }
       if (currentComponent.name === "main_frame" && image) {
         components[index].image = image || currentComponent.image;
@@ -156,6 +188,7 @@ const Main = () => {
       setHeight("");
       setTop("");
       setLeft("");
+      setRotate(0);
     }
   }, [color, image, left, top, width, height]);
 

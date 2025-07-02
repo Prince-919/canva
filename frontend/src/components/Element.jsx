@@ -33,7 +33,7 @@ const Element = ({ id, info, extraId }) => {
         </>
       )}
       <div
-        onMouseDown={() => info.resizeElement(id, info)}
+        onMouseDown={() => info.rotateElement(id, info)}
         className="hidden absolute group-hover:block -top-[3px] -left-[3px] w-[10px] h-[10px] cursor-nwse-resize bg-purple-500 z-[99999]"
       ></div>
 

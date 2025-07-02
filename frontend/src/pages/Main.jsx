@@ -18,6 +18,7 @@ const Main = () => {
   const [state, setState] = useState("");
   const [color, setColor] = useState("");
   const [image, setImage] = useState("");
+  const [rotate, setRotate] = useState(0);
   const [currentComponent, setCurrentComponent] = useState("");
   const [show, setShow] = useState({
     status: true,
@@ -38,6 +39,20 @@ const Main = () => {
   const rotateElement = () => {
     console.log("rotate clicked");
   };
+  const removeComponent = (id) => {
+    const temp = components.filter((c) => c.id !== id);
+    setCurrentComponent("");
+    setComponents(temp);
+  };
+
+  const removeBackground = () => {
+    const comp = components.find((c) => c.id === currentComponent.id);
+    const temp = components.filter((c) => c.id !== currentComponent.id);
+    comp.image = "";
+    setImage("");
+    setComponents([...temp, comp]);
+  };
+
   const [components, setComponents] = useState([
     {
       id: Math.floor(Math.random() * 100 + 1),
@@ -51,17 +66,29 @@ const Main = () => {
       setCurrentComponent: (a) => setCurrentComponent(a),
     },
   ]);
-  const removeComponent = () => {
-    console.log("remove component");
+
+  const createShape = (name, type) => {
+    const style = {
+      id: components.length + 1,
+      name: name,
+      type,
+      left: 10,
+      top: 10,
+      opacity: 1,
+      width: 200,
+      height: 150,
+      rotate,
+      z_index: 2,
+      color: "#3c3c3d",
+      setCurrentComponent: (a) => setCurrentComponent(a),
+      removeBackground: () => setImage(""),
+      moveElement,
+      resizeElement,
+      rotateElement,
+    };
+    setComponents([...components, style]);
   };
 
-  const removeBackground = () => {
-    const comp = components.find((c) => c.id === currentComponent.id);
-    const temp = components.filter((c) => c.id !== currentComponent.id);
-    comp.image = "";
-    setImage("");
-    setComponents([...temp, comp]);
-  };
   useEffect(() => {
     if (currentComponent) {
       const index = components.findIndex((c) => c.id === currentComponent.id);
@@ -73,6 +100,7 @@ const Main = () => {
       setComponents([...temp, components[index]]);
     }
   }, [color, image]);
+
   return (
     <div className="min-w-screen h-screen bg-black">
       <Header />
@@ -175,7 +203,7 @@ const Main = () => {
             )}
             {state === "shape" && (
               <div className="grid grid-cols-3 gap-2">
-                <Shapes />
+                <Shapes createShape={createShape} />
               </div>
             )}
             {state === "image" && (

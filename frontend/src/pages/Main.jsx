@@ -19,6 +19,8 @@ const Main = () => {
   const [color, setColor] = useState("");
   const [image, setImage] = useState("");
   const [rotate, setRotate] = useState(0);
+  const [left, setLeft] = useState("");
+  const [top, setTop] = useState("");
   const [currentComponent, setCurrentComponent] = useState("");
   const [show, setShow] = useState({
     status: true,
@@ -30,8 +32,28 @@ const Main = () => {
     setShow({ status: false, name });
   };
 
-  const moveElement = () => {
-    console.log("move clicked");
+  const moveElement = (id, currentInfo) => {
+    setCurrentComponent(currentInfo);
+    let isMoving = true;
+    const currentDiv = document.getElementById(id);
+    const mouseMove = ({ movementX, movementY }) => {
+      const getStyle = window.getComputedStyle(currentDiv);
+      const left = parseInt(getStyle.left);
+      const top = parseInt(getStyle.top);
+      if (isMoving) {
+        currentDiv.style.left = `${left + movementX}px`;
+        currentDiv.style.top = `${top + movementY}px`;
+      }
+    };
+    const mouseUp = () => {
+      isMoving = false;
+      window.removeEventListener("mousemove", mouseMove);
+      window.removeEventListener("mouseup", mouseUp);
+      setLeft(parseInt(currentDiv.style.left));
+      setTop(parseInt(currentDiv.style.top));
+    };
+    window.addEventListener("mousemove", mouseMove);
+    window.addEventListener("mouseup", mouseUp);
   };
   const resizeElement = () => {
     console.log("resize clicked");
@@ -97,9 +119,14 @@ const Main = () => {
         components[index].image = image || currentComponent.image;
       }
       components[index].color = color || currentComponent.color;
+      if (currentComponent.name !== "main_frame") {
+        components[index].left = left || currentComponent.left;
+        components[index].top = top || currentComponent.top;
+      }
+
       setComponents([...temp, components[index]]);
     }
-  }, [color, image]);
+  }, [color, image, left, top]);
 
   return (
     <div className="min-w-screen h-screen bg-black">

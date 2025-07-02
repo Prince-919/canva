@@ -40,7 +40,7 @@ const CreateComponent = ({ info, currectComponent, removeComponent }) => {
         }}
         className="absolute group hover:border-[2px] hover:border-indigo-500"
       >
-        <Element id={randomValue} info={info} />
+        <Element id={randomValue} info={info} extraId="" />
         {currectComponent?.id !== info.id && (
           <div
             onClick={() => removeComponent(info.id)}
@@ -65,6 +65,7 @@ const CreateComponent = ({ info, currectComponent, removeComponent }) => {
         }}
         className="absolute group hover:border-[2px] hover:border-indigo-500"
       >
+        <Element id={randomValue} info={info} extraId={`${randomValue}c`} />
         <div
           id={`${randomValue}c`}
           className="rounded-full"
@@ -99,8 +100,9 @@ const CreateComponent = ({ info, currectComponent, removeComponent }) => {
         }}
         className="absolute group hover:border-[2px] hover:border-indigo-500"
       >
+        <Element id={randomValue} info={info} extraId={`${randomValue}t`} />
         <div
-          id={`${randomValue}c`}
+          id={`${randomValue}t`}
           style={{
             width: info.width + "px",
             height: info.height + "px",

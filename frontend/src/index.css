@@ -21,3 +21,6 @@
   background-clip: text;
   color: transparent;
 }
+.triangle {
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}

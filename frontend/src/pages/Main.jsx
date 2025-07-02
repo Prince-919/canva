@@ -6,6 +6,12 @@ import { RxTransparencyGrid } from "react-icons/rx";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { useState } from "react";
 import TemplateDesign from "../components/main/TemplateDesign";
+import Shapes from "../components/main/Shapes";
+import UploadImage from "../components/main/UploadImage";
+import Text from "../components/main/Text";
+import Projects from "../components/main/Projects";
+import Image from "../components/main/Image";
+import Background from "../components/main/Background";
 
 const Main = () => {
   const [state, setState] = useState("");
@@ -118,12 +124,36 @@ const Main = () => {
                 <TemplateDesign />
               </div>
             )}
-            {state === "shape" && <div>Shape</div>}
-            {state === "image" && <div>Image</div>}
-            {state === "text" && <div>Text</div>}
-            {state === "project" && <div>Project</div>}
-            {state === "initImage" && <div>InitImage</div>}
-            {state === "background" && <div>Background</div>}
+            {state === "shape" && (
+              <div className="grid grid-cols-3 gap-2">
+                <Shapes />
+              </div>
+            )}
+            {state === "image" && (
+              <div>
+                <UploadImage />
+              </div>
+            )}
+            {state === "text" && (
+              <div className="grid grid-cols-1 gap-2">
+                <Text />
+              </div>
+            )}
+            {state === "project" && (
+              <div>
+                <Projects />
+              </div>
+            )}
+            {state === "initImage" && (
+              <div className="h-[88vh] overflow-x-auto flex justify-start items-start scrollbar-hide">
+                <Image />
+              </div>
+            )}
+            {state === "background" && (
+              <div className="h-[88vh] overflow-x-auto flex justify-start items-start scrollbar-hide">
+                <Background />
+              </div>
+            )}
           </div>
         </div>
       </div>

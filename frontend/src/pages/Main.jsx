@@ -12,9 +12,11 @@ import Text from "../components/main/Text";
 import Projects from "../components/main/Projects";
 import Image from "../components/main/Image";
 import Background from "../components/main/Background";
+import CreateComponent from "../components/CreateComponent";
 
 const Main = () => {
   const [state, setState] = useState("");
+  const [currentComponent, setCurrentComponent] = useState("");
   const [show, setShow] = useState({
     status: true,
     name: "",
@@ -24,6 +26,33 @@ const Main = () => {
     setState(type);
     setShow({ status: false, name });
   };
+
+  const moveElement = () => {
+    console.log("move clicked");
+  };
+  const resizeElement = () => {
+    console.log("resize clicked");
+  };
+  const rotateElement = () => {
+    console.log("rotate clicked");
+  };
+  const [components, setComponents] = useState([
+    {
+      id: Math.floor(Math.random() * 100 + 1),
+      name: "main_frame",
+      type: "create",
+      width: 650,
+      height: 450,
+      z_index: 1,
+      color: "#fff",
+      image: "",
+      setCurrentComponent: (a) => setCurrentComponent(a),
+    },
+  ]);
+  const removeComponent = () => {
+    console.log("remove component");
+  };
+  console.log(currentComponent);
   return (
     <div className="min-w-screen h-screen bg-black">
       <Header />
@@ -152,6 +181,38 @@ const Main = () => {
             {state === "background" && (
               <div className="h-[88vh] overflow-x-auto flex justify-start items-start scrollbar-hide">
                 <Background />
+              </div>
+            )}
+          </div>
+          <div className="w-full h-full">
+            <div
+              className={`relative flex justify-center items-center h-full ${
+                !currentComponent
+                  ? "w-full"
+                  : "w-[clac(100%-250px)] overflow-hidden"
+              }`}
+            >
+              <div className="min-w-[650px] min-h-[480px] flex justify-center items-center overflow-hidden">
+                <div
+                  id="main_design"
+                  className="w-auto h-auto relative overflow-hidden"
+                >
+                  {components.map((comp, i) => {
+                    return (
+                      <CreateComponent
+                        info={comp}
+                        key={i}
+                        currentComponent={currentComponent}
+                        removeComponent={removeComponent}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+            {currentComponent && (
+              <div className="w-[250px] h-full text-gray-300 bg-[#252627] absolute right-0 top-[60px] px-3 py-2">
+                Prince
               </div>
             )}
           </div>

@@ -4,7 +4,7 @@ const Projects = () => {
   return (
     <div className="h-[88vh] overflow-x-auto flex justify-start items-start scrollbar-hide">
       <div className="grid grid-cols-2 gap-2 ">
-        {Array(80)
+        {Array(8)
           .fill("")
           .map((data, i) => {
             return (

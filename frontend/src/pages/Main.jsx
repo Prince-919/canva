@@ -4,7 +4,7 @@ import { FaShapes, FaCloudUploadAlt } from "react-icons/fa";
 import { TfiText } from "react-icons/tfi";
 import { RxTransparencyGrid } from "react-icons/rx";
 import { MdKeyboardArrowLeft } from "react-icons/md";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TemplateDesign from "../components/main/TemplateDesign";
 import Shapes from "../components/main/Shapes";
 import UploadImage from "../components/main/UploadImage";
@@ -16,6 +16,8 @@ import CreateComponent from "../components/CreateComponent";
 
 const Main = () => {
   const [state, setState] = useState("");
+  const [color, setColor] = useState("");
+  const [image, setImage] = useState("");
   const [currentComponent, setCurrentComponent] = useState("");
   const [show, setShow] = useState({
     status: true,
@@ -52,7 +54,25 @@ const Main = () => {
   const removeComponent = () => {
     console.log("remove component");
   };
-  console.log(currentComponent);
+
+  const removeBackground = () => {
+    const comp = components.find((c) => c.id === currentComponent.id);
+    const temp = components.filter((c) => c.id !== currentComponent.id);
+    comp.image = "";
+    setImage("");
+    setComponents([...temp, comp]);
+  };
+  useEffect(() => {
+    if (currentComponent) {
+      const index = components.findIndex((c) => c.id === currentComponent.id);
+      const temp = components.filter((c) => c.id !== currentComponent.id);
+      if (currentComponent.name === "main_frame" && image) {
+        components[index].image = image || currentComponent.image;
+      }
+      components[index].color = color || currentComponent.color;
+      setComponents([...temp, components[index]]);
+    }
+  }, [color, image]);
   return (
     <div className="min-w-screen h-screen bg-black">
       <Header />
@@ -180,7 +200,7 @@ const Main = () => {
             )}
             {state === "background" && (
               <div className="h-[88vh] overflow-x-auto flex justify-start items-start scrollbar-hide">
-                <Background />
+                <Background setImage={setImage} />
               </div>
             )}
           </div>
@@ -212,7 +232,41 @@ const Main = () => {
             </div>
             {currentComponent && (
               <div className="w-[250px] h-full text-gray-300 bg-[#252627] absolute right-0 top-[60px] px-3 py-2">
-                Prince
+                <div className="flex flex-col justify-start items-start gap-3 h-full px-3">
+                  <div className="flex justify-start items-start gap-4">
+                    <span>Color : </span>
+                    <label
+                      className="w-[30px] h-[30px] rounded-sm cursor-pointer"
+                      style={{
+                        background: `${
+                          currentComponent.color &&
+                          currentComponent.color !== "#fff"
+                            ? currentComponent.color
+                            : "gray"
+                        }`,
+                      }}
+                      htmlFor="color"
+                    ></label>
+                    <input
+                      onChange={(e) => setColor(e.target.value)}
+                      type="color"
+                      id="color"
+                      className="invisible"
+                    />
+                  </div>
+                  <div>
+                    {currentComponent.name === "main_frame" && image && (
+                      <div>
+                        <button
+                          className="bg-slate-700 p-[6px] rounded-sm text-white"
+                          onClick={removeBackground}
+                        >
+                          Remove background
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
             )}
           </div>

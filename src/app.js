@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const path = require("node:path");
+const path = require("path");
 const { config } = require("./config");
 
 const app = express();
@@ -19,11 +19,14 @@ if (config.get("nodeEnv") === "development") {
   );
 }
 
+console.log(path.join(__dirname, "../frontend/dist"));
+console.log(path.resolve(__dirname, "../", "frontend", "dist", "index.html"));
+
 if (config.get("nodeEnv") === "production") {
-  app.use(express.static(path.join(__dirname, "./frontend/dist")));
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
   app.get("*", (req, res) => {
     res.sendFile(
-      path.resolve(__dirname, "./", "frontend", "dist", "index.html")
+      path.resolve(__dirname, "../", "frontend", "dist", "index.html")
     );
   });
 }

@@ -19,9 +19,6 @@ if (config.get("nodeEnv") === "development") {
   );
 }
 
-console.log(path.join(__dirname, "../frontend/dist"));
-console.log(path.resolve(__dirname, "../", "frontend", "dist", "index.html"));
-
 if (config.get("nodeEnv") === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
   app.get("*", (req, res) => {

@@ -19,7 +19,7 @@ if (config.get("nodeEnv") === "development") {
   );
 }
 
-if (config.get("nodeEnv") === "development") {
+if (config.get("nodeEnv") === "production") {
   app.use(express.static(path.join(__dirname, "./frontend/dist")));
   app.get("*", (req, res) => {
     res.sendFile(

@@ -1,3 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  font-family: "Open Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.custom_text_gradient {
+  background: linear-gradient(to right, #03bcce, #3d6be1, #7b2ae8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

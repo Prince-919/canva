@@ -210,9 +210,11 @@ const Index = () => {
           <h1 className="text-7xl text-[#dee2e6]">
             Where heart meets <span className="custom_text_gradient">art</span>.
           </h1>
-          <p className="text-[#aca9a9] text-xl mt-4">
-            Canva makes it easy to create and share professional designs.
-          </p>
+          <div>
+            <p className="text-[#aca9a9] text-xl mt-4">
+              Canva makes it easy to create and share professional designs.
+            </p>
+          </div>
           <button
             onClick={() => {
               setShow(true);

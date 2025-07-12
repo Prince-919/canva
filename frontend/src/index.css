@@ -12,3 +12,11 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+.bg-primary {
+  background: linear-gradient(
+    170deg,
+    rgba(3, 188, 206, 1) 0%,
+    rgba(61, 107, 225, 1) 45%,
+    rgba(123, 42, 232, 1) 100%
+  );
+}

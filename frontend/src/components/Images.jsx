@@ -1,13 +1,13 @@
-const TemplateDesign = () => {
+const Images = () => {
   return (
-    <>
-      {Array(8)
+    <div className="grid grid-cols-2 gap-2">
+      {Array(18)
         .fill("")
         .map((design, i) => {
           return (
             <div
               key={i}
-              className="group rounded-md overflow-hidden w-full bg-[#fff] cursor-pointer"
+              className="group rounded-md overflow-hidden w-full h-[90px] bg-[#fff] cursor-pointer"
             >
               <img
                 className="w-full h-full"
@@ -17,8 +17,8 @@ const TemplateDesign = () => {
             </div>
           );
         })}
-    </>
+    </div>
   );
 };
 
-export default TemplateDesign;
+export default Images;

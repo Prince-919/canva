@@ -12,6 +12,8 @@ import { MdKeyboardArrowLeft } from "react-icons/md";
 import { TbBackground } from "react-icons/tb";
 import ToolButton from "../components/ToolButton";
 import TemplateDesign from "../components/main/TemplateDesign";
+import Shapes from "../components/main/Shapes";
+import UploadImage from "../components/main/UploadImage";
 
 const Main = () => {
   const [state, setState] = useState("");
@@ -96,8 +98,12 @@ const Main = () => {
                 <TemplateDesign type="main" />
               </div>
             )}
-            {state === "shape" && <div>shape</div>}
-            {state === "image" && <div>image</div>}
+            {state === "shape" && (
+              <div className="grid grid-cols-3 gap-2">
+                <Shapes />
+              </div>
+            )}
+            {state === "image" && <UploadImage />}
             {state === "text" && <div>text</div>}
             {state === "project" && <div>project</div>}
             {state === "initImage" && <div>initImage</div>}

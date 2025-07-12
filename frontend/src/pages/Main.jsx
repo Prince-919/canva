@@ -25,6 +25,8 @@ const Main = () => {
   const [currentComponent, setCurrentComponent] = useState("");
   const [color, setColor] = useState("");
   const [image, setImage] = useState("");
+  const [left, setLeft] = useState("");
+  const [top, setTop] = useState("");
   const [rotate, setRotate] = useState(0);
   const [show, setShow] = useState({
     status: true,
@@ -60,14 +62,42 @@ const Main = () => {
       if (currentComponent.name === "main_frame" && image) {
         components[index].image = image || currentComponent.image;
       }
+      if (currentComponent.name !== "main_frame") {
+        components[index].left = left || currentComponent.left;
+        components[index].top = top || currentComponent.top;
+      }
       components[index].color = color || currentComponent.color;
 
       setComponents([...temp, components[index]]);
+      setColor("");
+      setLeft("");
+      setTop("");
     }
-  }, [color, image]);
+  }, [color, image, left, top]);
 
-  const moveElement = () => {
-    console.log("Move element");
+  const moveElement = (id, currentInfo) => {
+    setCurrentComponent(currentInfo);
+    let isMoving = true;
+    const currentDiv = document.getElementById(id);
+
+    function mouseMove({ movementX, movementY }) {
+      const getStyle = window.getComputedStyle(currentDiv);
+      const left = parseInt(getStyle.left);
+      const top = parseInt(getStyle.top);
+      if (isMoving) {
+        currentDiv.style.left = `${left + movementX}px`;
+        currentDiv.style.top = `${top + movementY}px`;
+      }
+    }
+    function mouseUp() {
+      let isMoving = false;
+      window.removeEventListener("mousemove", mouseMove);
+      window.removeEventListener("mouseup", mouseUp);
+      setLeft(parseInt(currentDiv.style.left));
+      setTop(parseInt(currentDiv.style.top));
+    }
+    window.addEventListener("mousemove", mouseMove);
+    window.addEventListener("mouseup", mouseUp);
   };
   const resizeElement = () => {
     console.log("Resize element");

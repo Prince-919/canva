@@ -32,11 +32,14 @@ const Element = ({ id, info, extraId }) => {
           ></div>
         </>
       )}
+
+      {/* Rotate element */}
       <div
         onMouseDown={() => info.rotateElement(id, info)}
-        className="w-[10px] h-[10px] hidden group-hover:block cursor-nw-resize absolute -top-[5px] bg-slate-600 -left-[5px] rounded-full z-[9999]"
+        className="w-[10px] h-[10px] hidden group-hover:block cursor-nw-resize absolute -top-[5px] bg-slate-500 -left-[5px] rounded-full z-[9999]"
       ></div>
 
+      {/* Move element */}
       <div
         onMouseDown={() => info.moveElement(id, info)}
         className="w-[20px] h-[6px] hidden group-hover:block absolute cursor-n-resize left-1/2 -translate-x-1/2 -bottom-1 bg-blue-500 rounded-md z-[9999]"

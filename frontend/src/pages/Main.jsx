@@ -14,6 +14,10 @@ import ToolButton from "../components/ToolButton";
 import TemplateDesign from "../components/main/TemplateDesign";
 import Shapes from "../components/main/Shapes";
 import UploadImage from "../components/main/UploadImage";
+import Text from "../components/main/Text";
+import Projects from "../components/Projects";
+import Images from "../components/Images";
+import Background from "../components/main/Background";
 
 const Main = () => {
   const [state, setState] = useState("");
@@ -104,10 +108,18 @@ const Main = () => {
               </div>
             )}
             {state === "image" && <UploadImage />}
-            {state === "text" && <div>text</div>}
-            {state === "project" && <div>project</div>}
-            {state === "initImage" && <div>initImage</div>}
-            {state === "background" && <div>background</div>}
+            {state === "text" && (
+              <div className="grid grid-cols-1 gap-2">
+                <Text />
+              </div>
+            )}
+            {state === "project" && <Projects />}
+            {state === "initImage" && (
+              <div className="h-[88vh] w-full flex justify-start items-start scrollbar-hide overflow-x-auto">
+                <Images />
+              </div>
+            )}
+            {state === "background" && <Background />}
           </div>
         </div>
       </div>

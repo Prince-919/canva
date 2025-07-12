@@ -7,7 +7,7 @@ const Images = () => {
           return (
             <div
               key={i}
-              className="group rounded-md overflow-hidden w-full h-[90px] bg-[#fff] cursor-pointer"
+              className="group rounded-sm overflow-hidden w-full h-[90px] bg-[#fff] cursor-pointer"
             >
               <img
                 className="w-full h-full object-fill"

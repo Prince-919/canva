@@ -7,7 +7,7 @@ import { RxText } from "react-icons/rx";
 import { CiText } from "react-icons/ci";
 import { IoImage, IoImageOutline } from "react-icons/io5";
 import { RxTransparencyGrid } from "react-icons/rx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { TbBackground } from "react-icons/tb";
 import ToolButton from "../components/ToolButton";
@@ -18,9 +18,14 @@ import Text from "../components/main/Text";
 import Projects from "../components/Projects";
 import Images from "../components/Images";
 import Background from "../components/main/Background";
+import CreateComponent from "../components/CreateComponent";
 
 const Main = () => {
   const [state, setState] = useState("");
+  const [currentComponent, setCurrentComponent] = useState("");
+  const [color, setColor] = useState("");
+  const [image, setImage] = useState("");
+  const [rotate, setRotate] = useState(0);
   const [show, setShow] = useState({
     status: true,
     name: "",
@@ -32,6 +37,76 @@ const Main = () => {
       status: false,
       name,
     });
+  };
+
+  const [components, setComponents] = useState([
+    {
+      name: "main_frame",
+      type: "rect",
+      id: Math.floor(Math.random() * 100 + 1),
+      height: 500,
+      width: 650,
+      z_index: 1,
+      color: "#fff",
+      image: "",
+      setCurrentComponent: (a) => setCurrentComponent(a),
+    },
+  ]);
+
+  useEffect(() => {
+    if (currentComponent) {
+      const index = components.findIndex((c) => c.id === currentComponent.id);
+      const temp = components.filter((c) => c.id !== currentComponent.id);
+      if (currentComponent.name === "main_frame" && image) {
+        components[index].image = image || currentComponent.image;
+      }
+      components[index].color = color || currentComponent.color;
+
+      setComponents([...temp, components[index]]);
+    }
+  }, [color, image]);
+
+  const moveElement = () => {
+    console.log("Move element");
+  };
+  const resizeElement = () => {
+    console.log("Resize element");
+  };
+  const rotateElement = () => {
+    console.log("Rotate element");
+  };
+  const removeComponent = (id) => {
+    const temp = components.filter((c) => c.id !== id);
+    setCurrentComponent("");
+    setComponents(temp);
+  };
+  const removeBackground = () => {
+    const com = components.find((c) => c.id === currentComponent.id);
+    const temp = components.filter((c) => c.id !== currentComponent.id);
+    com.image = "";
+    setImage("");
+    setComponents([...temp, com]);
+  };
+
+  const createShape = (name, type) => {
+    const style = {
+      id: Date.now(),
+      name,
+      type,
+      left: 10,
+      top: 10,
+      opacity: 1,
+      width: 200,
+      height: 150,
+      rotate,
+      z_index: 2,
+      color: "#3c3c3d",
+      setCurrentComponent: (a) => setCurrentComponent(a),
+      moveElement,
+      resizeElement,
+      rotateElement,
+    };
+    setComponents([...components, style]);
   };
   return (
     <div className="min-w-screen h-screen bg-black">
@@ -104,7 +179,7 @@ const Main = () => {
             )}
             {state === "shape" && (
               <div className="grid grid-cols-3 gap-2">
-                <Shapes />
+                <Shapes createShape={createShape} />
               </div>
             )}
             {state === "image" && <UploadImage />}
@@ -119,7 +194,68 @@ const Main = () => {
                 <Images />
               </div>
             )}
-            {state === "background" && <Background />}
+            {state === "background" && <Background setImage={setImage} />}
+          </div>
+          <div className="w-full h-full flex">
+            <div
+              className={`flex justify-center items-center relative h-full ${
+                !currentComponent
+                  ? "w-full"
+                  : "w-[calc(100%-250px)] overflow-hidden"
+              }`}
+            >
+              <div className="m-w-[650px] m-h-[500px] flex justify-center items-center overflow-hidden">
+                <div
+                  id="main_design"
+                  className="w-auto relative h-auto overflow-hidden"
+                >
+                  {components.map((c, i) => (
+                    <CreateComponent
+                      key={i}
+                      info={c}
+                      currentComponent={currentComponent}
+                      removeComponent={removeComponent}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+            {currentComponent && (
+              <div className="bg-[#252627] h-full w-[250px] text-gray-300 px-3 py-2">
+                <div className="flex gap-6 flex-col h-full items-start justify-start px-3">
+                  <div className="flex gap-4 items-start justify-start mt-3">
+                    <span className="tracking-tight">Color : </span>
+                    <label
+                      htmlFor="color"
+                      className="w-[30px] h-[30px] rounded-sm cursor-pointer"
+                      style={{
+                        background: `${
+                          currentComponent.color &&
+                          currentComponent.color !== "#fff"
+                            ? currentComponent.color
+                            : "gray"
+                        }`,
+                      }}
+                    ></label>
+                    <input
+                      type="color"
+                      id="color"
+                      onChange={(e) => setColor(e.target.value)}
+                      className="invisible"
+                    />
+                  </div>
+                  {currentComponent.name === "main_frame" &&
+                    currentComponent.image && (
+                      <div
+                        onClick={removeBackground}
+                        className="bg-slate-600 p-[6px] text-white tracking-tight rounded-sm cursor-pointer"
+                      >
+                        Remove background
+                      </div>
+                    )}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

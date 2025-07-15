@@ -39,6 +39,25 @@ const Index = () => {
     }
   };
 
+  const login = async (e) => {
+    e.preventDefault();
+    try {
+      setLoader(true);
+      const { data } = await api.post("/api/login", state);
+      setLoader(false);
+      localStorage.setItem("canva_token", data.token);
+      setState({
+        email: "",
+        password: "",
+      });
+      console.log(data);
+      window.location.href = "/";
+    } catch (error) {
+      setLoader(false);
+      console.log(error);
+    }
+  };
+
   return (
     <div className="bg-[#18191b] min-h-screen w-full">
       <div
@@ -63,7 +82,7 @@ const Index = () => {
               free)!
             </p>
             {type === "login" && (
-              <form>
+              <form onSubmit={login}>
                 <div className="flex flex-col gap-2 mb-3 text-white">
                   <label htmlFor="email">Email</label>
                   <input

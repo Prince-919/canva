@@ -5,10 +5,12 @@ const { config } = require("./config");
 
 const app = express();
 
+app.use(express.json());
+
 if (config.get("nodeEnv") === "development") {
   app.use(
     cors({
-      origin: "http://localhost:3000",
+      origin: "http://localhost:5173",
     })
   );
 } else {
@@ -18,6 +20,8 @@ if (config.get("nodeEnv") === "development") {
     })
   );
 }
+
+app.use("/api", require("./routes/auth"));
 
 if (config.get("nodeEnv") === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));

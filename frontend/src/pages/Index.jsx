@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { FaFacebookF, FaGoogle } from "react-icons/fa";
+import api from "../api/api";
 
 const Index = () => {
   const [type, setType] = useState("");
   const [show, setShow] = useState(false);
+  const [loader, setLoader] = useState(false);
   const [state, setState] = useState({
     name: "",
     email: "",
@@ -16,6 +18,25 @@ const Index = () => {
       ...state,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const register = async (e) => {
+    e.preventDefault();
+    try {
+      setLoader(true);
+      const { data } = await api.post("/api/register", state);
+      setLoader(false);
+      localStorage.setItem("canva_token", data.token);
+      setState({
+        name: "",
+        email: "",
+        password: "",
+      });
+      window.location.href = "/";
+    } catch (error) {
+      setLoader(false);
+      console.log(error);
+    }
   };
 
   return (
@@ -68,8 +89,11 @@ const Index = () => {
                   />
                 </div>
                 <div>
-                  <button className="py-2 px-3 w-full bg-purple-500 text-white hover:bg-purple-600 rounded-md font-medium">
-                    Log in
+                  <button
+                    disabled={loader}
+                    className="py-2 px-3 w-full bg-purple-500 text-white hover:bg-purple-600 rounded-md font-medium"
+                  >
+                    {loader ? "Loading.." : "Log in"}
                   </button>
                 </div>
                 <div className="flex py-4 justify-between items-center px-3">
@@ -96,7 +120,7 @@ const Index = () => {
               </form>
             )}
             {type === "signup" && (
-              <form>
+              <form onSubmit={register}>
                 <div className="flex flex-col gap-2 mb-3 text-white">
                   <label htmlFor="name">Name</label>
                   <input
@@ -134,8 +158,11 @@ const Index = () => {
                   />
                 </div>
                 <div>
-                  <button className="py-2 px-3 w-full bg-purple-500 text-white hover:bg-purple-600 rounded-md font-medium">
-                    Log in
+                  <button
+                    disabled={loader}
+                    className="py-2 px-3 w-full bg-purple-500 text-white hover:bg-purple-600 rounded-md font-medium"
+                  >
+                    {loader ? "Loading.." : "Sign up"}
                   </button>
                 </div>
                 <div className="flex py-4 justify-between items-center px-3">

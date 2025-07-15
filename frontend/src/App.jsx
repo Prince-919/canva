@@ -6,11 +6,14 @@ import Templates from "./components/Templates";
 import CreateDesign from "./components/CreateDesign";
 import Main from "./pages/Main";
 import Index from "./pages/Index";
+import { tokenDecode } from "./utils";
+
+const userInfo = tokenDecode(localStorage.getItem("canva_token"));
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Index />,
+    element: userInfo ? <Layout /> : <Index />,
     children: [
       {
         path: "/",

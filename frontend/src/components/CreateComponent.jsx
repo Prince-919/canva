@@ -119,6 +119,82 @@ const CreateComponent = ({ info, currentComponent, removeComponent }) => {
       </div>
     );
   }
+  if (info.name === "text") {
+    html = (
+      <div
+        id={randomValue}
+        onClick={() => info.setCurrentComponent(info)}
+        style={{
+          top: info.top + "px",
+          left: info.left + "px",
+          zIndex: info.z_index,
+          transform: info.rotate ? `rotate(${info.rotate}deg)` : "rotate(0deg)",
+          padding: info.padding + "px",
+          color: info.color,
+          opacity: info.opacity,
+        }}
+        className="absolute group hover:border-[2px] hover:border-indigo-500"
+      >
+        <Element id={randomValue} info={info} extraId="" />
+        <h2
+          style={{
+            fontSize: info.font + "px",
+            fontWeight: info.weight,
+          }}
+          className="w-full h-full"
+        >
+          {info.title}
+        </h2>
+        {currentComponent.id === info.id && (
+          <div
+            onClick={() => removeComponent(info.id)}
+            className="px-3 py-2 absolute bg-white hover:text-red-500 top-0 hidden group-hover:block cursor-pointer rounded-sm"
+          >
+            <LuTrash2 />
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  if (info.name === "image") {
+    html = (
+      <div
+        id={randomValue}
+        onClick={() => info.setCurrentComponent(info)}
+        style={{
+          top: info.top + "px",
+          left: info.left + "px",
+          zIndex: info.z_index,
+          opacity: info.opacity,
+          transform: info.rotate ? `rotate(${info.rotate}deg)` : "rotate(0deg)",
+        }}
+        className="absolute group hover:border-[2px] hover:border-indigo-500"
+      >
+        <Element id={randomValue} info={info} extraId={`${randomValue}img`} />
+        <div
+          className="overflow-hidden"
+          id={`${randomValue}img`}
+          style={{
+            width: info.width + "px",
+            height: info.height + "px",
+            borderRadius: `${info.radius}%`,
+          }}
+        >
+          <img className="w-full h-full" src={info.image} alt="image" />
+        </div>
+        {currentComponent.id === info.id && (
+          <div
+            onClick={() => removeComponent(info.id)}
+            className="px-3 py-2 absolute bg-white hover:text-red-500 top-0 hidden group-hover:block cursor-pointer rounded-sm"
+          >
+            <LuTrash2 />
+          </div>
+        )}
+      </div>
+    );
+  }
+
   return html;
 };
 

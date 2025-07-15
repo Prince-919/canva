@@ -1,4 +1,4 @@
-const Images = () => {
+const Images = ({ addImage }) => {
   return (
     <div className="grid grid-cols-2 gap-2">
       {Array(18)
@@ -6,6 +6,11 @@ const Images = () => {
         .map((design, i) => {
           return (
             <div
+              onClick={() =>
+                addImage(
+                  "https://marketplace.canva.com/EAGXZ8Q5-Ss/1/0/1600w/canva-blue-white-modern-3d-space-group-project-presentation-N6v-F93vWDc.jpg"
+                )
+              }
               key={i}
               className="group rounded-sm overflow-hidden w-full h-[90px] bg-[#fff] cursor-pointer"
             >

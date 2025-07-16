@@ -22,6 +22,7 @@ if (config.get("nodeEnv") === "development") {
 }
 
 app.use("/api", require("./routes/auth"));
+app.use("/api", require("./routes/design"));
 
 if (config.get("nodeEnv") === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));

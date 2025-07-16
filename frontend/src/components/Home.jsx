@@ -38,7 +38,8 @@ const Home = () => {
     });
   };
 
-  const create = () => {
+  const create = (e) => {
+    e.preventDefault();
     navigate("/design/create", {
       state: {
         type: "create",
@@ -58,6 +59,7 @@ const Home = () => {
           Custom size
         </button>
         <form
+          onSubmit={create}
           className={`absolute top-16 right-3 gap-3 bg-[#252627] w-[250px] p-4 text-white ${
             show ? "visible opacity-100" : "invisible opacity-30"
           } transition-all duration-200 rounded-[5px]`}
@@ -84,10 +86,7 @@ const Home = () => {
               />
             </div>
           </div>
-          <button
-            onClick={create}
-            className="w-full py-2 px-4 overflow-hidden text-center text-white bg-purple-500 hover:bg-purple-600 rounded-[3px] font-medium tracking-tight"
-          >
+          <button className="w-full py-2 px-4 overflow-hidden text-center text-white bg-purple-500 hover:bg-purple-600 rounded-[3px] font-medium tracking-tight">
             Create new design
           </button>
         </form>

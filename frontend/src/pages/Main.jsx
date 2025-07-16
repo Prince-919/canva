@@ -19,8 +19,11 @@ import Projects from "../components/Projects";
 import Images from "../components/Images";
 import Background from "../components/main/Background";
 import CreateComponent from "../components/CreateComponent";
+import api from "../api/api";
+import { useParams } from "react-router-dom";
 
 const Main = () => {
+  const { design_id } = useParams();
   const [state, setState] = useState("");
   const [currentComponent, setCurrentComponent] = useState("");
   const [color, setColor] = useState("");
@@ -119,6 +122,26 @@ const Main = () => {
     text,
     radius,
   ]);
+
+  const getDesign = async () => {
+    try {
+      const { data } = await api.get(`/api/design/${design_id}`);
+      const { design } = data;
+      for (let i = 0; i < design.length; i++) {
+        design[i].setCurrentComponent = (a) => setCurrentComponent(a);
+        design[i].moveElement = moveElement;
+        design[i].resizeElement = resizeElement;
+        design[i].rotateElement = rotateElement;
+        design[i].removeBackground = removeBackground;
+      }
+      setComponents(design);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getDesign();
+  }, []);
 
   const moveElement = (id, currentInfo) => {
     setCurrentComponent(currentInfo);

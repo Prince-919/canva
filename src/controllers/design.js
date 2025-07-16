@@ -21,5 +21,14 @@ class DesignCtrl {
       return res.status(500).json({ message: error.message });
     }
   };
+  static getDesign = async (req, res) => {
+    const { design_id } = req.params;
+    try {
+      const design = await DesignModel.findById(design_id);
+      return res.status(200).json({ design: design.components });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  };
 }
 module.exports = DesignCtrl;

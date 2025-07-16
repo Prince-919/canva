@@ -17,7 +17,7 @@ const CreateDesign = () => {
     height: state?.height,
     width: state?.width,
     z_index: 1,
-    color: "#323232",
+    color: "#fff",
     image: "",
   };
 

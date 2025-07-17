@@ -1,12 +1,12 @@
 import axios from "axios";
 
 const localURL = "http://localhost:5000";
-const productionURL = "";
+const productionURL = "https://banavo.vercel.app";
 
 const token = localStorage.getItem("canva_token");
 
 const api = axios.create({
-  baseURL: localURL,
+  baseURL: productionURL,
   headers: {
     Authorization: token ? `Bearer ${token}` : "",
   },

@@ -1,27 +1,23 @@
-const Images = ({ addImage }) => {
+const Images = ({ addImage, images, type, setImage }) => {
   return (
-    <div className="grid grid-cols-2 gap-2">
-      {Array(18)
-        .fill("")
-        .map((design, i) => {
-          return (
-            <div
-              onClick={() =>
-                addImage(
-                  "https://marketplace.canva.com/EAGXZ8Q5-Ss/1/0/1600w/canva-blue-white-modern-3d-space-group-project-presentation-N6v-F93vWDc.jpg"
-                )
-              }
-              key={i}
-              className="group rounded-sm overflow-hidden w-full h-[90px] bg-[#fff] cursor-pointer"
-            >
-              <img
-                className="w-full h-full object-fill"
-                src="https://marketplace.canva.com/EAGXZ8Q5-Ss/1/0/1600w/canva-blue-white-modern-3d-space-group-project-presentation-N6v-F93vWDc.jpg"
-                alt=""
-              />
-            </div>
-          );
-        })}
+    <div className={`grid grid-cols-2 gap-2`}>
+      {images.map((item, i) => (
+        <div
+          onClick={() =>
+            type === "background"
+              ? setImage(item.imageUrl)
+              : addImage(item.imageUrl)
+          }
+          key={i}
+          className="rounded-sm overflow-hidden w-full h-[90px] cursor-pointer"
+        >
+          <img
+            className="w-full h-full object-fill"
+            src={item.imageUrl}
+            alt=""
+          />
+        </div>
+      ))}
     </div>
   );
 };

@@ -16,11 +16,11 @@ import Shapes from "../components/main/Shapes";
 import UploadImage from "../components/main/UploadImage";
 import Text from "../components/main/Text";
 import Projects from "../components/Projects";
-import Images from "../components/Images";
-import Background from "../components/main/Background";
 import CreateComponent from "../components/CreateComponent";
 import api from "../api/api";
 import { useParams } from "react-router-dom";
+import BackgroundImages from "../components/BackgroundImages";
+import InitialImage from "../components/InitialImage";
 
 const Main = () => {
   const { design_id } = useParams();
@@ -59,7 +59,7 @@ const Main = () => {
       type: "rect",
       id: Math.floor(Math.random() * 100 + 1),
       height: 500,
-      width: 650,
+      width: 600,
       z_index: 1,
       color: "#fff",
       image: "",
@@ -387,7 +387,7 @@ const Main = () => {
                 <Shapes createShape={createShape} />
               </div>
             )}
-            {state === "image" && <UploadImage />}
+            {state === "image" && <UploadImage addImage={addImage} />}
             {state === "text" && (
               <div className="grid grid-cols-1 gap-2">
                 <Text addText={addText} />
@@ -396,10 +396,12 @@ const Main = () => {
             {state === "project" && <Projects />}
             {state === "initImage" && (
               <div className="h-[88vh] w-full flex justify-start items-start scrollbar-hide overflow-x-auto">
-                <Images addImage={addImage} />
+                <InitialImage addImage={addImage} />
               </div>
             )}
-            {state === "background" && <Background setImage={setImage} />}
+            {state === "background" && (
+              <BackgroundImages type="background" setImage={setImage} />
+            )}
           </div>
           <div className="w-full h-full flex">
             <div

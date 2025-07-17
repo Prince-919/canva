@@ -1,3 +1,12 @@
 const UserModel = require("./user");
 const DesignModel = require("./design");
-module.exports = { UserModel, DesignModel };
+const ImageModel = require("./image");
+const BackgroundModel = require("./background");
+const DesignImageModel = require("./designImage");
+module.exports = {
+  UserModel,
+  DesignModel,
+  ImageModel,
+  BackgroundModel,
+  DesignImageModel,
+};

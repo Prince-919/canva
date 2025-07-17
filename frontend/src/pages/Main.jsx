@@ -315,7 +315,7 @@ const Main = () => {
   };
   return (
     <div className="min-w-screen h-screen bg-black">
-      <Header />
+      <Header components={components} design_id={design_id} />
       <div className="flex h-[calc(100vh-60px)] w-screen">
         <div className="bg-[#18191b] w-[80px] h-full z-50 overflow-y-auto text-gray-400">
           <ToolButton

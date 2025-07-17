@@ -10,7 +10,7 @@ app.use(express.json());
 if (config.get("nodeEnv") === "development") {
   app.use(
     cors({
-      origin: "http://localhost:5173",
+      origin: "https://banavo.vercel.app",
     })
   );
 } else {

@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { Link, useNavigate } from "react-router-dom";
-import { FaTrash } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
+import api from "../api/api";
+import Item from "./home/Item";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ const Home = () => {
     width: "",
     height: "",
   });
+  const [designs, setDesigns] = useState([]);
 
   const responsive = {
     superLargeDesktop: {
@@ -48,6 +50,20 @@ const Home = () => {
       },
     });
   };
+
+  useEffect(() => {
+    const getDesigns = async () => {
+      try {
+        const { data } = await api.get("/api/designs");
+
+        setDesigns(data.designs);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getDesigns();
+  }, []);
 
   return (
     <div className="pt-1 pl-3">
@@ -107,22 +123,9 @@ const Home = () => {
             infinite={true}
             transitionDuration={500}
           >
-            {Array(8)
-              .fill("")
-              .map((item, i) => (
-                <div key={i} className="w-full h-[180px] px-2 relative group">
-                  <Link className="w-full h-full block bg-[#323232] p-4 rounded-md">
-                    <img
-                      className="w-full h-full object-cover rounded-[3px] overflow-hidden"
-                      src="https://marketplace.canva.com/EAGXZ8Q5-Ss/1/0/1600w/canva-blue-white-modern-3d-space-group-project-presentation-N6v-F93vWDc.jpg"
-                      alt=""
-                    />
-                  </Link>
-                  <div className="absolute hidden cursor-pointer top-1 right-2 text-red-500 p-2 transition-all duration-200 group-hover:block">
-                    <FaTrash />
-                  </div>
-                </div>
-              ))}
+            {designs.map((d, i) => {
+              return <Item design={d} key={i} />;
+            })}
           </Carousel>
           ;
         </div>

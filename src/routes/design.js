@@ -6,5 +6,6 @@ const router = require("express").Router();
 router.post("/create-design", auth, DesignCtrl.create);
 router.get("/design/:design_id", auth, DesignCtrl.getDesign);
 router.put("/update-design/:design_id", auth, DesignCtrl.update);
+router.get("/designs", auth, DesignCtrl.getDesigns);
 
 module.exports = router;

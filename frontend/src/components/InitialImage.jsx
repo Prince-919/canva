@@ -10,7 +10,7 @@ const InitialImage = ({ addImage }) => {
     const getImages = async () => {
       try {
         const { data } = await api.get("/api/design-images");
-        console.log(data);
+
         setImages(data.images);
       } catch (error) {
         console.log(error);

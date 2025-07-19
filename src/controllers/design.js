@@ -1,6 +1,9 @@
 const formidable = require("formidable");
 const { cloudinary } = require("../config");
 const { DesignModel } = require("../models");
+const {
+  mongo: { ObjectId },
+} = require("mongoose");
 
 class DesignCtrl {
   static create = async (req, res) => {
@@ -54,6 +57,17 @@ class DesignCtrl {
       } else {
         return res.status(404).json({ message: "Design not found." });
       }
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  };
+  static getDesigns = async (req, res) => {
+    const { _id } = req.userInfo;
+    try {
+      const designs = await DesignModel.find({
+        userId: new ObjectId(_id),
+      }).sort({ createdAt: -1 });
+      return res.status(200).json({ designs });
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }

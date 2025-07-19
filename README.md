@@ -20,12 +20,12 @@ A full-stack web application designed for creating, customizing, and managing pr
 
 This is a **MERN (MongoDB, Express, React, Node.js)** application that allows users to:
 
-✅ Customizable Design Editor – Add text, shapes, templates, and images
-✅ Image & Template Library – Pre-built templates and backgrounds
-✅ Drag-and-Drop UI – Smooth user experience for editing
-✅ Responsive Layout – Works seamlessly on all devices
-✅ Secure Authentication – Login/Register using JWT
-✅ CRUD Operations – Save, edit, and manage designs
+- ✅ Customizable Design Editor – Add text, shapes, templates, and images
+- ✅ Image & Template Library – Pre-built templates and backgrounds
+- ✅ Drag-and-Drop UI – Smooth user experience for editing
+- ✅ Responsive Layout – Works seamlessly on all devices
+- ✅ Secure Authentication – Login/Register using JWT
+- ✅ CRUD Operations – Save, edit, and manage designs
 
 ---
 

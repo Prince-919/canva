@@ -1,7 +1,7 @@
 import { FaTrash } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
-const Item = ({ design }) => {
+const Item = ({ design, deleteDesign }) => {
   return (
     <div className="w-full h-[180px] px-2 relative group">
       <Link
@@ -14,7 +14,10 @@ const Item = ({ design }) => {
           alt=""
         />
       </Link>
-      <div className="absolute hidden cursor-pointer top-1 right-2 text-red-500 p-2 transition-all duration-200 group-hover:block">
+      <div
+        onClick={() => deleteDesign(design._id)}
+        className="absolute hidden cursor-pointer top-1 right-2 text-red-500 p-2 transition-all duration-200 group-hover:block"
+      >
         <FaTrash />
       </div>
     </div>

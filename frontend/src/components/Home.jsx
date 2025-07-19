@@ -4,6 +4,7 @@ import "react-multi-carousel/lib/styles.css";
 import { useNavigate } from "react-router-dom";
 import api from "../api/api";
 import Item from "./home/Item";
+import toast from "react-hot-toast";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -51,17 +52,26 @@ const Home = () => {
     });
   };
 
+  const getDesigns = async () => {
+    try {
+      const { data } = await api.get("/api/designs");
+
+      setDesigns(data.designs);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const deleteDesign = async (design_id) => {
+    try {
+      const { data } = await api.delete(`/api/delete-image/${design_id}`);
+      toast.success(data.message);
+      getDesigns();
+    } catch (error) {
+      toast.success(error.response.data.message);
+    }
+  };
+
   useEffect(() => {
-    const getDesigns = async () => {
-      try {
-        const { data } = await api.get("/api/designs");
-
-        setDesigns(data.designs);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
     getDesigns();
   }, []);
 
@@ -124,7 +134,7 @@ const Home = () => {
             transitionDuration={500}
           >
             {designs.map((d, i) => {
-              return <Item design={d} key={i} />;
+              return <Item design={d} key={i} deleteDesign={deleteDesign} />;
             })}
           </Carousel>
           ;

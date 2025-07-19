@@ -72,5 +72,14 @@ class DesignCtrl {
       return res.status(500).json({ message: error.message });
     }
   };
+  static deleteDesign = async (req, res) => {
+    const { design_id } = req.params;
+    try {
+      await DesignModel.findByIdAndDelete(design_id);
+      return res.status(200).json({ message: "Deleted successful." });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  };
 }
 module.exports = DesignCtrl;

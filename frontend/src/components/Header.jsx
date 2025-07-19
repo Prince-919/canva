@@ -8,18 +8,21 @@ const Header = ({ components, design_id }) => {
   const [loader, setLoader] = useState(false);
 
   const downloadImage = async () => {
-    const getDiv = document.getElementById("main_design");
-    const dataUrl = await htmlToImage.toPng(getDiv, {
-      style: {
-        transform: "scale(1)",
-      },
-    });
-    var link = document.createElement("a");
-    link.download = "image";
-    link.href = dataUrl;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    try {
+      const getDiv = document.getElementById("main_design");
+      const dataUrl = await htmlToImage.toPng(getDiv, {
+        style: { transform: "scale(1)" },
+      });
+
+      const link = document.createElement("a");
+      link.download = "image.png";
+      link.href = dataUrl;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const saveImage = async () => {
@@ -56,7 +59,7 @@ const Header = ({ components, design_id }) => {
           <div className="w-[100px] h-[48px]">
             <img
               className="w-full h-full object-cover"
-              src="http://localhost:5173/public/main-logo.png"
+              src="/main-logo.png"
               alt="logo"
             />
           </div>

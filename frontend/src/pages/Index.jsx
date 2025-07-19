@@ -2,6 +2,7 @@ import { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { FaFacebookF, FaGoogle } from "react-icons/fa";
 import api from "../api/api";
+import toast from "react-hot-toast";
 
 const Index = () => {
   const [type, setType] = useState("");
@@ -25,6 +26,7 @@ const Index = () => {
     try {
       setLoader(true);
       const { data } = await api.post("/api/register", state);
+      toast.success(data.message);
       setLoader(false);
       localStorage.setItem("canva_token", data.token);
       setState({
@@ -35,7 +37,7 @@ const Index = () => {
       window.location.href = "/";
     } catch (error) {
       setLoader(false);
-      console.log(error);
+      toast.error(error.response.data.message);
     }
   };
 
@@ -44,6 +46,7 @@ const Index = () => {
     try {
       setLoader(true);
       const { data } = await api.post("/api/login", state);
+      toast.success(data.message);
       setLoader(false);
       localStorage.setItem("canva_token", data.token);
       setState({
@@ -54,7 +57,7 @@ const Index = () => {
       window.location.href = "/";
     } catch (error) {
       setLoader(false);
-      console.log(error);
+      toast.error(error.response.data.message);
     }
   };
 

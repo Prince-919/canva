@@ -29,7 +29,6 @@ const UploadImage = ({ addImage }) => {
     const getImages = async () => {
       try {
         const { data } = await api.get("/api/get-image");
-
         setImages(data.images);
       } catch (error) {
         console.log(error);

@@ -8,7 +8,6 @@ const {
 class DesignCtrl {
   static create = async (req, res) => {
     const form = new formidable.IncomingForm();
-    console.log(form);
     const { _id } = req.userInfo;
     try {
       const [fields, files] = await form.parse(req);

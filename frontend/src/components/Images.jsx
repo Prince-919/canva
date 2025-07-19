@@ -14,7 +14,7 @@ const Images = ({ addImage, images, type, setImage }) => {
           <img
             className="w-full h-full object-fill"
             src={item.imageUrl}
-            alt=""
+            alt="image"
           />
         </div>
       ))}

@@ -8,7 +8,6 @@ import { useEffect } from "react";
 const UploadImage = ({ addImage }) => {
   const [images, setImages] = useState([]);
   const [loader, setLoader] = useState(false);
-  console.log(images);
 
   const imageUpload = async (e) => {
     if (e.target.files.length > 0) {

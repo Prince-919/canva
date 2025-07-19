@@ -1,12 +1,18 @@
 import { FaTrash } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
-const Item = ({ design, deleteDesign }) => {
+const Item = ({ design, deleteDesign, type }) => {
   return (
-    <div className="w-full h-[180px] px-2 relative group">
+    <div
+      className={`relative group w-full ${
+        type ? "h-[100px]" : "h-[180px] px-2"
+      }`}
+    >
       <Link
-        to={`design/${design._id}/edit`}
-        className="w-full h-full block bg-[#323232] p-3 rounded-md"
+        to={`/design/${design._id}/edit`}
+        className={`w-full h-full block bg-[#ffffff12] rounded-md ${
+          type ? "" : "p-3"
+        }`}
       >
         <img
           className="w-full h-full object-fill rounded-[3px] overflow-hidden"

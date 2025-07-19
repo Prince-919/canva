@@ -1,23 +1,51 @@
-import { Link } from "react-router-dom";
+import api from "../api/api";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import Item from "./home/Item";
 
-const Projects = () => {
+const Projects = ({ type, design_id }) => {
+  const [designs, setDesigns] = useState([]);
+
+  const getDesigns = async () => {
+    try {
+      const { data } = await api.get("/api/designs");
+      setDesigns(data.designs);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const deleteDesign = async (design_id) => {
+    try {
+      const { data } = await api.delete(`/api/delete-image/${design_id}`);
+      toast.success(data.message);
+      getDesigns();
+    } catch (error) {
+      toast.success(error.response.data.message);
+    }
+  };
+
+  useEffect(() => {
+    getDesigns();
+  }, []);
   return (
     <div className="h-[88vh] w-full flex justify-start items-start scrollbar-hide overflow-x-auto">
-      <div className="grid grid-cols-2 gap-2 w-full mt-5">
-        {Array(18)
-          .fill("")
-          .map((design, i) => {
+      <div
+        className={`${
+          type
+            ? " grid grid-cols-2 gap-2 w-full mt-5"
+            : "grid grid-cols-4 gap-2 w-full mt-5"
+        }`}
+      >
+        {designs
+          .filter((d) => !design_id || d._id !== design_id)
+          .map((d) => {
             return (
-              <Link
-                key={i}
-                className="group rounded-sm overflow-hidden w-full h-[90px] bg-[#fff] cursor-pointer"
-              >
-                <img
-                  className="w-full h-full object-fill"
-                  src="https://marketplace.canva.com/EAGXZ8Q5-Ss/1/0/1600w/canva-blue-white-modern-3d-space-group-project-presentation-N6v-F93vWDc.jpg"
-                  alt=""
-                />
-              </Link>
+              <Item
+                key={d._id}
+                design={d}
+                deleteDesign={deleteDesign}
+                type={type}
+              />
             );
           })}
       </div>

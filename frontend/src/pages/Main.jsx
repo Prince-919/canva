@@ -393,7 +393,9 @@ const Main = () => {
                 <Text addText={addText} />
               </div>
             )}
-            {state === "project" && <Projects />}
+            {state === "project" && (
+              <Projects type="main" design_id={design_id} />
+            )}
             {state === "initImage" && (
               <div className="h-[88vh] w-full flex justify-start items-start scrollbar-hide overflow-x-auto">
                 <InitialImage addImage={addImage} />

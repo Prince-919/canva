@@ -3,6 +3,7 @@ import { RxCross2 } from "react-icons/rx";
 import { FaFacebookF, FaGoogle } from "react-icons/fa";
 import api from "../api/api";
 import toast from "react-hot-toast";
+import { LAPTOP_GIRL_IMAGE, MAIN_LOGO } from "../utils/constants";
 
 const Index = () => {
   const [type, setType] = useState("");
@@ -214,7 +215,7 @@ const Index = () => {
           <div className="w-[50%]">
             <img
               className="w-full h-full object-cover rounded-tr-lg rounded-br-lg"
-              src="https://static.canva.com/authenticating/auth_dialog/auth_dialog_en.jpg"
+              src={LAPTOP_GIRL_IMAGE}
               alt="Girl computer image"
             />
           </div>
@@ -227,7 +228,7 @@ const Index = () => {
             <div className="w-[100px] h-[48px]">
               <img
                 className="w-full h-full object-cover"
-                src="http://localhost:5173/public/main-logo.png"
+                src={MAIN_LOGO}
                 alt="logo"
               />
             </div>

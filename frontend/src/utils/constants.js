@@ -20,3 +20,5 @@ export const MAIN_LOGO =
   "https://res.cloudinary.com/dkalt3njf/image/upload/v1752914656/kh4mqogjbpui9cudrisb.png";
 export const AVATAR_IMAGE =
   "https://res.cloudinary.com/dkalt3njf/image/upload/v1752915829/ju7seaajmt8s5woxtspd.webp";
+export const LAPTOP_GIRL_IMAGE =
+  "https://res.cloudinary.com/dkalt3njf/image/upload/v1752917634/zqedqcjsyjh2irffel3e.jpg";

@@ -3,6 +3,7 @@ import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { BsGrid1X2, BsGrid1X2Fill } from "react-icons/bs";
 import { FaRegFolderClosed, FaRegFolderOpen } from "react-icons/fa6";
 import { GoHome, GoHomeFill } from "react-icons/go";
+import { AVATAR_IMAGE } from "../utils/constants";
 
 const Layout = () => {
   const [show, setShow] = useState(false);
@@ -64,7 +65,7 @@ const Layout = () => {
                   <div className="cursor-pointer h-12 w-12">
                     <img
                       className="w-full h-full object-cover rounded-full"
-                      src="https://static.vecteezy.com/system/resources/thumbnails/027/951/137/small_2x/stylish-spectacles-guy-3d-avatar-character-illustrations-png.png"
+                      src={AVATAR_IMAGE}
                       alt=""
                     />
                   </div>
@@ -103,7 +104,7 @@ const Layout = () => {
             <div className="cursor-pointer h-12 w-12">
               <img
                 className="w-full h-full object-cover rounded-full"
-                src="https://static.vecteezy.com/system/resources/thumbnails/027/951/137/small_2x/stylish-spectacles-guy-3d-avatar-character-illustrations-png.png"
+                src={AVATAR_IMAGE}
                 alt=""
               />
             </div>

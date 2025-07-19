@@ -377,22 +377,15 @@ const Main = () => {
             >
               <MdKeyboardArrowLeft />
             </div>
-            {state === "design" && (
-              <div className="grid grid-cols-2 gap-2">
-                <TemplateDesign type="main" />
-              </div>
-            )}
+            {state === "design" && <TemplateDesign type="main" />}
             {state === "shape" && (
               <div className="grid grid-cols-3 gap-2">
                 <Shapes createShape={createShape} />
               </div>
             )}
             {state === "image" && <UploadImage addImage={addImage} />}
-            {state === "text" && (
-              <div className="grid grid-cols-1 gap-2">
-                <Text addText={addText} />
-              </div>
-            )}
+            {state === "text" && <Text addText={addText} />}
+
             {state === "project" && (
               <Projects type="main" design_id={design_id} />
             )}

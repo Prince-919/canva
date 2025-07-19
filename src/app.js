@@ -26,6 +26,7 @@ app.use("/api", require("./routes/design"));
 app.use("/api", require("./routes/image"));
 app.use("/api", require("./routes/background"));
 app.use("/api", require("./routes/designImage"));
+app.use("/api", require("./routes/template"));
 
 if (config.get("nodeEnv") === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));

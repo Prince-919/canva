@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { BsGrid1X2, BsGrid1X2Fill } from "react-icons/bs";
 import { FaRegFolderClosed, FaRegFolderOpen } from "react-icons/fa6";
 import { GoHome, GoHomeFill } from "react-icons/go";
@@ -7,6 +7,23 @@ import { GoHome, GoHomeFill } from "react-icons/go";
 const Layout = () => {
   const [show, setShow] = useState(false);
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  const create = (e) => {
+    e.preventDefault();
+    navigate("/design/create", {
+      state: {
+        type: "create",
+        width: 600,
+        height: 450,
+      },
+    });
+  };
+
+  const logout = () => {
+    localStorage.removeItem("canva_token");
+    window.location.href = "/";
+  };
 
   return (
     <div className="bg-[#18191b] min-h-screen w-full">
@@ -21,7 +38,10 @@ const Layout = () => {
               />
             </div>
             <div className="flex justify-between items-center gap-4 relative">
-              <button className="py-2 px-4 overflow-hidden text-center text-white bg-purple-500 hover:bg-purple-600 transition-all duration-200 rounded-[3px] font-medium tracking-tight">
+              <button
+                onClick={create}
+                className="py-2 px-4 overflow-hidden text-center text-white bg-purple-500 hover:bg-purple-600 transition-all duration-200 rounded-[3px] font-medium tracking-tight"
+              >
                 Create a Design
               </button>
               <div
@@ -57,12 +77,19 @@ const Layout = () => {
                     </span>
                   </div>
                 </div>
-                <ul className="text-[#e0dddd] font-semibold">
+                <ul className="text-[#e0dddd] font-semibold mt-2">
                   <li>
-                    <Link className="p-2 cursor-pointer">Settings</Link>
+                    <Link className="p-2 cursor-pointer hover:text-purple-500 transition-all duration-100">
+                      Settings
+                    </Link>
                   </li>
                   <li>
-                    <Link className="p-2 cursor-pointer">Logout</Link>
+                    <div
+                      onClick={logout}
+                      className="p-2 cursor-pointer hover:text-purple-500 transition-all duration-100"
+                    >
+                      Logout
+                    </div>
                   </li>
                 </ul>
               </div>

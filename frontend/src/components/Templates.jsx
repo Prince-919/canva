@@ -1,5 +1,7 @@
+import TemplateDesign from "./main/TemplateDesign";
+
 const Templates = () => {
-  return <div>Templates</div>;
+  return <TemplateDesign />;
 };
 
 export default Templates;

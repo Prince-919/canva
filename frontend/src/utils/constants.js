@@ -16,3 +16,5 @@ export const responsive = {
     items: 1,
   },
 };
+export const MAIN_LOGO =
+  "https://res.cloudinary.com/dkalt3njf/image/upload/v1752914656/kh4mqogjbpui9cudrisb.png";

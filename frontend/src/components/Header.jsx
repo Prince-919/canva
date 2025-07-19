@@ -3,6 +3,7 @@ import * as htmlToImage from "html-to-image";
 import api from "../api/api";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { MAIN_LOGO } from "../utils/constants";
 
 const Header = ({ components, design_id }) => {
   const [loader, setLoader] = useState(false);
@@ -58,7 +59,7 @@ const Header = ({ components, design_id }) => {
           <div className="w-[100px] h-[48px]">
             <img
               className="w-full h-full object-cover"
-              src="/main-logo.png"
+              src={MAIN_LOGO}
               alt="logo"
             />
           </div>

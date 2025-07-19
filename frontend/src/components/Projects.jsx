@@ -1,19 +1,11 @@
 import api from "../api/api";
-import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Item from "./home/Item";
+import { useFetchDesigns } from "../hooks";
 
 const Projects = ({ type, design_id }) => {
-  const [designs, setDesigns] = useState([]);
+  const { designs, getDesigns } = useFetchDesigns();
 
-  const getDesigns = async () => {
-    try {
-      const { data } = await api.get("/api/designs");
-      setDesigns(data.designs);
-    } catch (error) {
-      console.log(error);
-    }
-  };
   const deleteDesign = async (design_id) => {
     try {
       const { data } = await api.delete(`/api/delete-image/${design_id}`);
@@ -24,9 +16,6 @@ const Projects = ({ type, design_id }) => {
     }
   };
 
-  useEffect(() => {
-    getDesigns();
-  }, []);
   return (
     <div className="h-[88vh] w-full flex justify-start items-start scrollbar-hide overflow-x-auto">
       <div

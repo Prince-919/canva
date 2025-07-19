@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 import api from "../api/api";
 import Item from "./home/Item";
 import toast from "react-hot-toast";
+import { useFetchDesigns } from "../hooks";
+import { responsive } from "../utils/constants";
+import LabeledInput from "./LabeledInput";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -13,26 +16,7 @@ const Home = () => {
     width: "",
     height: "",
   });
-  const [designs, setDesigns] = useState([]);
-
-  const responsive = {
-    superLargeDesktop: {
-      breakpoint: { max: 4000, min: 3000 },
-      items: 5,
-    },
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 4,
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 3,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-    },
-  };
+  const { designs, getDesigns } = useFetchDesigns();
 
   const inputHandler = (e) => {
     setState({
@@ -52,15 +36,6 @@ const Home = () => {
     });
   };
 
-  const getDesigns = async () => {
-    try {
-      const { data } = await api.get("/api/designs");
-
-      setDesigns(data.designs);
-    } catch (error) {
-      console.log(error);
-    }
-  };
   const deleteDesign = async (design_id) => {
     try {
       const { data } = await api.delete(`/api/delete-image/${design_id}`);
@@ -70,10 +45,6 @@ const Home = () => {
       toast.success(error.response.data.message);
     }
   };
-
-  useEffect(() => {
-    getDesigns();
-  }, []);
 
   return (
     <div className="pt-1 pl-3">
@@ -91,26 +62,20 @@ const Home = () => {
           } transition-all duration-200 rounded-[5px]`}
         >
           <div className="grid grid-cols-2 gap-3 pb-4">
-            <div className="flex flex-col gap-2 justify-start">
-              <label htmlFor="width">Width</label>
-              <input
-                onChange={inputHandler}
-                type="number"
-                name="width"
-                id="width"
-                className="bg-[#1b1a1a] outline-none border border-[#404040] px-2 py-[4px] rounded-[3px]"
-              />
-            </div>
-            <div className="flex flex-col gap-2 justify-start">
-              <label htmlFor="height">Height</label>
-              <input
-                onChange={inputHandler}
-                type="number"
-                name="height"
-                id="height"
-                className="bg-[#1b1a1a] outline-none border border-[#404040] px-2 py-[4px] rounded-[3px]"
-              />
-            </div>
+            <LabeledInput
+              type="number"
+              name="width"
+              id="width"
+              label="Width"
+              onChange={inputHandler}
+            />
+            <LabeledInput
+              type="number"
+              name="height"
+              id="height"
+              label="Height"
+              onChange={inputHandler}
+            />
           </div>
           <button className="w-full py-2 px-4 overflow-hidden text-center text-white bg-purple-500 hover:bg-purple-600 rounded-[3px] font-medium tracking-tight">
             Create new design

@@ -1,22 +1,10 @@
-import { useEffect, useState } from "react";
 import api from "../../api/api";
 import { useNavigate } from "react-router-dom";
+import { useFetchTemplates } from "../../hooks";
 
 const TemplateDesign = ({ type }) => {
   const navigate = useNavigate();
-  const [templates, setTemplates] = useState([]);
-  useEffect(() => {
-    const getTemplates = async () => {
-      try {
-        const { data } = await api.get("/api/templates");
-
-        setTemplates(data.templates);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getTemplates();
-  }, []);
+  const { templates } = useFetchTemplates();
 
   const addTemplate = async (id) => {
     try {

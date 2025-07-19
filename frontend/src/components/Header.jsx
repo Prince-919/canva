@@ -33,7 +33,6 @@ const Header = ({ components, design_id }) => {
       const obj = {
         design: components,
       };
-
       const formData = new FormData();
       formData.append("design", JSON.stringify(obj));
       formData.append("image", image);

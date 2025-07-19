@@ -12,10 +12,12 @@ class ImageCtrl {
     try {
       const [_, files] = await form.parse(req);
       const { image } = files;
-      const { url } = await cloudinary.uploader.upload(image[0].filepath);
+      const { secure_url } = await cloudinary.uploader.upload(
+        image[0].filepath
+      );
       const userImage = await ImageModel.create({
         userId: _id,
-        imageUrl: url,
+        imageUrl: secure_url,
       });
       return res.status(201).json({ userImage });
     } catch (error) {

@@ -395,7 +395,9 @@ const Main = () => {
               </div>
             )}
             {state === "background" && (
-              <BackgroundImages type="background" setImage={setImage} />
+              <div className="h-[88vh] w-full flex justify-start items-start scrollbar-hide overflow-x-auto">
+                <BackgroundImages type="background" setImage={setImage} />
+              </div>
             )}
           </div>
           <div className="w-full h-full flex">

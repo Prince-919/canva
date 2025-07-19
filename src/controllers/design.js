@@ -12,11 +12,13 @@ class DesignCtrl {
     try {
       const [fields, files] = await form.parse(req);
       const { image } = files;
-      const { url } = await cloudinary.uploader.upload(image[0].filepath);
+      const { secure_url } = await cloudinary.uploader.upload(
+        image[0].filepath
+      );
       const design = await DesignModel.create({
         userId: _id,
         components: [JSON.parse(fields.design[0])],
-        imageUrl: url,
+        imageUrl: secure_url,
       });
       return res.status(201).json({ design });
     } catch (error) {
@@ -47,9 +49,11 @@ class DesignCtrl {
           const imageName = imageFile.split(".")[0];
           await cloudinary.uploader.destroy(imageName);
         }
-        const { url } = await cloudinary.uploader.upload(image[0].filepath);
+        const { secure_url } = await cloudinary.uploader.upload(
+          image[0].filepath
+        );
         await DesignModel.findByIdAndUpdate(design_id, {
-          imageUrl: url,
+          imageUrl: secure_url,
           components,
         });
         return res.status(200).json({ message: "Save successful." });
